@@ -1,0 +1,66 @@
+import React, { useState } from 'react';
+
+const StepperForm = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log(formData);
+    // Reset form data and move to the next step
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+    });
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const handlePrevStep = () => {
+    setStep((prevStep) => prevStep - 1);
+  };
+
+  return (
+    <div>
+      <div>
+        Step {step} of 3
+        <hr />
+      </div>
+
+      {step === 1 && (
+        <form onSubmit={handleSubmit}>
+          <label>
+            First Name:
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Last Name:
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <br />

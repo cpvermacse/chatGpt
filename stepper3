@@ -1,0 +1,115 @@
+import React, { useState } from 'react';
+
+const StepperForm = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log(formData);
+    // Reset form data and move to the next step
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+    });
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const handlePrevStep = () => {
+    setStep((prevStep) => prevStep - 1);
+  };
+
+  return (
+    <div>
+      <div>
+        Step {step} of 3
+        <hr />
+      </div>
+
+      {step === 1 && (
+        <div>
+          <h3>Step 1: Personal Information</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              First Name:
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              Last Name:
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <br />
+            <button type="submit">Next</button>
+          </form>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div>
+          <h3>Step 2: Contact Information</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <br />
+            <button type="submit">Next</button>
+            <button type="button" onClick={handlePrevStep}>
+              Previous
+            </button>
+          </form>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div>
+          <h3>Step 3: Confirmation</h3>
+          <div>
+            <h2>Thank you for submitting the form!</h2>
+            <p>First Name: {formData.firstName}</p>
+            <p>Last Name: {formData.lastName}</p>
+            <p>Email: {formData.email}</p>
+            <button type="button" onClick={handlePrevStep}>
+              Previous
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default StepperForm;

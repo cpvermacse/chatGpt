@@ -64,3 +64,43 @@ const StepperForm = () => {
             />
           </label>
           <br />
+          <button type="submit">Next</button>
+        </form>
+      )}
+
+      {step === 2 && (
+        <form onSubmit={handleSubmit}>
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <br />
+          <button type="submit">Next</button>
+          <button type="button" onClick={handlePrevStep}>
+            Previous
+          </button>
+        </form>
+      )}
+
+      {step === 3 && (
+        <div>
+          <h2>Thank you for submitting the form!</h2>
+          <p>First Name: {formData.firstName}</p>
+          <p>Last Name: {formData.lastName}</p>
+          <p>Email: {formData.email}</p>
+          <button type="button" onClick={handlePrevStep}>
+            Previous
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default StepperForm;

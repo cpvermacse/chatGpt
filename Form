@@ -1,0 +1,79 @@
+
+import React, { useState } from 'react';
+import { TextField, Button } from '@material-ui/core';
+
+const RegistrationForm = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Perform registration logic here
+    // e.g., send data to server, perform validation, etc.
+
+    // Reset form fields
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <TextField
+        label="First Name"
+        value={firstName}
+        onChange={handleFirstNameChange}
+        required
+      />
+      <br />
+      <TextField
+        label="Last Name"
+        value={lastName}
+        onChange={handleLastNameChange}
+        required
+      />
+      <br />
+      <TextField
+        type="email"
+        label="Email"
+        value={email}
+        onChange={handleEmailChange}
+        required
+      />
+      <br />
+      <TextField
+        type="password"
+        label="Password"
+        value={password}
+        onChange={handlePasswordChange}
+        required
+      />
+      <br />
+      <Button type="submit" variant="contained" color="primary">
+        Register
+      </Button>
+    </form>
+  );
+};
+
+export default RegistrationForm;

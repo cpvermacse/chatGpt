@@ -1,0 +1,137 @@
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+  },
+  submitButton: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
+interface Country {
+  code: string;
+  name: string;
+}
+
+interface Prefix {
+  code: string;
+  name: string;
+}
+
+const countries: Country[] = [
+  { code: 'us', name: 'United States' },
+  { code: 'ca', name: 'Canada' },
+  { code: 'uk', name: 'United Kingdom' },
+  // Add more countries as needed
+];
+
+const prefixes: Prefix[] = [
+  { code: '+1', name: 'USA (+1)' },
+  { code: '+44', name: 'UK (+44)' },
+  // Add more prefixes as needed
+];
+
+const RegistrationForm: React.FC = () => {
+  const classes = useStyles();
+  const [country, setCountry] = useState<string>('');
+  const [prefix, setPrefix] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [mobile, setMobile] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+
+  const handleCountryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCountry(event.target.value as string);
+  };
+
+  const handlePrefixChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setPrefix(event.target.value as string);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Perform form submission or validation logic here
+  };
+
+  return (
+    <form className={classes.form} onSubmit={handleSubmit}>
+      <FormControl>
+        <InputLabel id="country-label">Country</InputLabel>
+        <Select
+          labelId="country-label"
+          value={country}
+          onChange={handleCountryChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {countries.map((country) => (
+            <MenuItem key={country.code} value={country.code}>
+              {country.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <TextField
+        label="First Name"
+        value={firstName}
+        onChange={(event) => setFirstName(event.target.value)}
+      />
+      <TextField
+        label="Last Name"
+        value={lastName}
+        onChange={(event) => setLastName(event.target.value)}
+      />
+      <FormControl>
+        <InputLabel id="prefix-label">Prefix</InputLabel>
+        <Select
+          labelId="prefix-label"
+          value={prefix}
+          onChange={handlePrefixChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {prefixes.map((prefix) => (
+            <MenuItem key={prefix.code} value={prefix.code}>
+              {prefix.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <TextField
+        label="Mobile"
+        value={mobile}
+        onChange={(event) => setMobile(event.target.value)}
+      />
+      <TextField
+        label="Email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      <Button
+        className={classes.submitButton}
+        variant="contained"
+        color="primary"
+        type="submit"
+      >
+        Submit
+      </Button>
+    </form>
+  );
+};
+
+export default RegistrationForm;

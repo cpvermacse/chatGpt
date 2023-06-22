@@ -1,0 +1,121 @@
+import React, { useState } from 'react';
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TextField,
+} from '@material-ui/core';
+
+const data = [
+  // Your data goes here
+];
+
+const MyTable = () => {
+  const [filters, setFilters] = useState({
+    applicationName: '',
+    country: '',
+    crop: '',
+    product: '',
+    event: '',
+    validTill: '',
+    status: '',
+    action: '',
+  });
+
+  const handleFilterChange = (field, value) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [field]: value,
+    }));
+  };
+
+  const filteredData = data.filter((item) =>
+    Object.keys(filters).every(
+      (key) =>
+        filters[key] === '' || item[key].toLowerCase().includes(filters[key].toLowerCase())
+    )
+  );
+
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>
+            <TextField
+              label="Application Name"
+              value={filters.applicationName}
+              onChange={(e) => handleFilterChange('applicationName', e.target.value)}
+            />
+          </TableCell>
+          <TableCell>
+            <TextField
+              label="Country"
+              value={filters.country}
+              onChange={(e) => handleFilterChange('country', e.target.value)}
+            />
+          </TableCell>
+          <TableCell>
+            <TextField
+              label="Crop"
+              value={filters.crop}
+              onChange={(e) => handleFilterChange('crop', e.target.value)}
+            />
+          </TableCell>
+          <TableCell>
+            <TextField
+              label="Product"
+              value={filters.product}
+              onChange={(e) => handleFilterChange('product', e.target.value)}
+            />
+          </TableCell>
+          <TableCell>
+            <TextField
+              label="Event"
+              value={filters.event}
+              onChange={(e) => handleFilterChange('event', e.target.value)}
+            />
+          </TableCell>
+          <TableCell>
+            <TextField
+              label="Valid Till"
+              value={filters.validTill}
+              onChange={(e) => handleFilterChange('validTill', e.target.value)}
+            />
+          </TableCell>
+          <TableCell>
+            <TextField
+              label="Status"
+              value={filters.status}
+              onChange={(e) => handleFilterChange('status', e.target.value)}
+            />
+          </TableCell>
+          <TableCell>
+            <TextField
+              label="Action"
+              value={filters.action}
+              onChange={(e) => handleFilterChange('action', e.target.value)}
+            />
+          </TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {filteredData.map((item, index) => (
+          <TableRow key={index}>
+            <TableCell>{item.applicationName}</TableCell>
+            <TableCell>{item.country}</TableCell>
+            <TableCell>{item.crop}</TableCell>
+            <TableCell>{item.product}</TableCell>
+            <TableCell>{item.event}</TableCell>
+            <TableCell>{item.validTill}</TableCell>
+            <TableCell>{item.status}</TableCell>
+            <TableCell>{item.action}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
+
+export default MyTable;

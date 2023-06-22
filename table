@@ -33,12 +33,12 @@ const MyTable = () => {
     action: '',
   });
 
-  const handleFilterChange = (field, value) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [field]: value,
-    }));
-  };
+  const handleFilterChange = (field: keyof typeof filters, value: string) => {
+  setFilters((prevFilters) => ({
+    ...prevFilters,
+    [field]: value,
+  }));
+};
 
   const filteredData = data.filter((item) =>
     Object.keys(filters).every(

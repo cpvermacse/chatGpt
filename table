@@ -7,8 +7,17 @@ import {
   TableCell,
   TextField,
 } from '@material-ui/core';
-
-const data = [
+interface DataItem {
+  applicationName: string;
+  country: string;
+  crop: string;
+  product: string;
+  event: string;
+  validTill: string;
+  status: string;
+  action: string;
+}
+const data: DataItem[] = [
   // Your data goes here
 ];
 

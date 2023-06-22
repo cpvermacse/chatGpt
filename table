@@ -40,12 +40,14 @@ const MyTable = () => {
   }));
 };
 
-  const filteredData = data.filter((item) =>
-    Object.keys(filters).every(
-      (key) =>
-        filters[key] === '' || item[key].toLowerCase().includes(filters[key].toLowerCase())
-    )
-  );
+const filteredData = data.filter((item) =>
+  Object.keys(filters).every((key) => {
+    const filterValue = filters[key as keyof typeof filters].toLowerCase();
+    const itemValue = (item as any)[key].toLowerCase(); // Type assertion
+    return itemValue.includes(filterValue);
+  })
+);
+
 
   return (
     <Table>

@@ -1,0 +1,41 @@
+function MyDataGrid() {
+  const { data } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100,
+  });
+
+  const [filterText, setFilterText] = React.useState('');
+
+  const handleFilterChange = (event) => {
+    setFilterText(event.target.value);
+  };
+
+  const filteredRows = React.useMemo(() => {
+    return data.rows.filter((row) => {
+      return Object.values(row).some((value) => {
+        return String(value).toLowerCase().includes(filterText.toLowerCase());
+      });
+    });
+  }, [data.rows, filterText]);
+
+  return (
+    <div style={{ height: 400, width: '100%' }}>
+      <GridToolbarContainer>
+        <TextField
+          label="Search"
+          variant="standard"
+          value={filterText}
+          onChange={handleFilterChange}
+          size="small"
+        />
+        <GridToolbarFilterButton />
+      </GridToolbarContainer>
+      <DataGrid
+        rows={filteredRows}
+        columns={data.columns}
+        pageSize={5}
+        checkboxSelection
+      />
+    </div>
+  );
+}

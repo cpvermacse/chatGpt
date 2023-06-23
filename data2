@@ -1,29 +1,35 @@
 import React, { useState, useMemo } from 'react';
 import { DataGrid, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import TextField from '@mui/material/TextField';
-//import { useDemoData } from '@mui/x-data-grid-generator';
-import { useDemoData } from '@mui/x-data-grid-generator-types';
-
 
 function MyDataGrid() {
-  const { data } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 100,
-  });
-
   const [filterText, setFilterText] = useState('');
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
   };
 
-  const filteredRows = useMemo(() => {
-    return data.rows.filter((row) => {
-      return Object.values(row).some((value) => {
-        return String(value).toLowerCase().includes(filterText.toLowerCase());
-      });
-    });
-  }, [data.rows, filterText]);
+  const data = useMemo(() => {
+    const rows = [
+      { id: 1, name: 'John Doe', age: 25 },
+      { id: 2, name: 'Jane Smith', age: 30 },
+      { id: 3, name: 'Bob Johnson', age: 35 },
+      // Add more rows as needed
+    ];
+
+    return {
+      columns: [
+        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'name', headerName: 'Name', width: 150 },
+        { field: 'age', headerName: 'Age', width: 90 },
+      ],
+      rows: rows.filter((row) =>
+        Object.values(row).some((value) =>
+          String(value).toLowerCase().includes(filterText.toLowerCase())
+        )
+      ),
+    };
+  }, [filterText]);
 
   return (
     <div style={{ height: 400, width: '100%' }}>
@@ -38,7 +44,7 @@ function MyDataGrid() {
         <GridToolbarFilterButton />
       </GridToolbarContainer>
       <DataGrid
-        rows={filteredRows}
+        rows={data.rows}
         columns={data.columns}
         pageSize={5}
         checkboxSelection
@@ -56,10 +62,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-

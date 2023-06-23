@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { DataGrid, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import TextField from '@mui/material/TextField';
-import { useDemoData } from '@mui/x-data-grid-generator';
+//import { useDemoData } from '@mui/x-data-grid-generator';
+import { useDemoData } from '@mui/x-data-grid-generator-types';
+
 
 function MyDataGrid() {
   const { data } = useDemoData({

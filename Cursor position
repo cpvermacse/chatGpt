@@ -1,0 +1,17 @@
+import React, { MouseEvent, useRef } from 'react';
+
+const App: React.FC = () => {
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    const posX = event.clientX;
+    const posY = event.clientY;
+    console.log(`Cursor position: X=${posX}, Y=${posY}`);
+  };
+
+  return (
+    <div onClick={handleClick} style={{ height: '100vh' }}>
+      Click anywhere to get cursor position.
+    </div>
+  );
+};
+
+export default App;
